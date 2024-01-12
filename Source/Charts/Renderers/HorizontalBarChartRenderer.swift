@@ -265,13 +265,33 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                 context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
 
+            #if canImport(UIKit)
+            if (dataSet.shouldRoundCorners) {
+                let path = dataSet.roundedPath(for: barRect, isHorizontal: true)
+                context.addPath(path)
+                context.fillPath()
+            } else {
+                context.fill(barRect)
+            }
+            #else
             context.fill(barRect)
+            #endif
 
             if drawBorder
             {
                 context.setStrokeColor(borderColor.cgColor)
                 context.setLineWidth(borderWidth)
+                #if canImport(UIKit)
+                if (dataSet.shouldRoundCorners) {
+                    let path = dataSet.roundedPath(for: barRect, isHorizontal: true)
+                    context.addPath(path)
+                    context.strokePath()
+                } else {
+                    context.stroke(barRect)
+                }
+                #else
                 context.stroke(barRect)
+                #endif
             }
 
             // Create and append the corresponding accessibility element to accessibilityOrderedElements (see BarChartRenderer)
