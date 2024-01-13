@@ -94,8 +94,8 @@ open class AxisBase: ComponentBase
     
     /// the number of label entries the axis should have
     ///
-    /// **default**: 6
-    private var _labelCount = Int(6)
+    /// **default**: 2
+    private var _labelCount = Int(2)
     
     /// the number of decimal digits to use (for the default formatter
     @objc open var decimals: Int = 0
